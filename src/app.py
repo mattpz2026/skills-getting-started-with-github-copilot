@@ -38,6 +38,42 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Team": {
+        "description": "Practice team drills and compete in interscholastic games",
+        "schedule": "Mondays and Thursdays, 4:00 PM - 6:00 PM",
+        "max_participants": 15,
+        "participants": ["alex@mergington.edu", "chris@mergington.edu"]
+    },
+    "Yoga Club": {
+        "description": "Develop flexibility and mindfulness through yoga practice",
+        "schedule": "Wednesdays, 3:30 PM - 4:30 PM",
+        "max_participants": 20,
+        "participants": ["taylor@mergington.edu", "jordan@mergington.edu"]
+    },
+    "Art Club": {
+        "description": "Explore drawing, painting, and mixed media art projects",
+        "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": ["leah@mergington.edu", "noah@mergington.edu"]
+    },
+    "Drama Society": {
+        "description": "Rehearse scenes, learn stagecraft, and perform plays",
+        "schedule": "Fridays, 4:00 PM - 6:00 PM",
+        "max_participants": 25,
+        "participants": ["mia@mergington.edu", "ethan@mergington.edu"]
+    },
+    "Debate Team": {
+        "description": "Research topics and compete in structured debating events",
+        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 16,
+        "participants": ["ava@mergington.edu", "logan@mergington.edu"]
+    },
+    "Science Club": {
+        "description": "Conduct experiments and explore science fair projects",
+        "schedule": "Thursdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": ["isabella@mergington.edu", "lucas@mergington.edu"]
     }
 }
 
@@ -59,6 +95,11 @@ def signup_for_activity(activity_name: str, email: str):
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
+    # Validate email is not already signed up
+    if email in activities[activity_name]["participants"]:
+        raise HTTPException(
+            status_code=400, detail="Email already signed up for this activity")
+    
     # Get the specific activity
     activity = activities[activity_name]
 
